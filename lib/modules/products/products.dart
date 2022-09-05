@@ -159,7 +159,7 @@ class Products extends StatelessWidget {
                     price: model.price!,
                   );
                 },
-                text: 'Add Cred',
+                text: 'Add Card',
                 isUpper: false)
           ]),
         ),
