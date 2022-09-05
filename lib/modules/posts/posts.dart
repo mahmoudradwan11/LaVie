@@ -46,104 +46,101 @@ class Posts extends StatelessWidget {
     );
   }
 
-  Widget builtPostItem(Map model, context) => Dismissible(key: Key(model['id'].toString()),
-  onDismissed: (direction) {
-  LaVieCubit.get(context).deletePostData(id: model['id']);
-  },
-    child: Card(
-          margin: const EdgeInsets.symmetric(horizontal: 0.8),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          elevation: 5.0,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 25.0,
-                      backgroundImage:
-                          NetworkImage('${LaVieCubit.get(context).image}'),
-                    ),
-                    const SizedBox(
-                      width: 15.0,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                '${LaVieCubit.get(context).firstName}',
-                                style: const TextStyle(
-                                  height: 1.4,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                            ],
-                          ),
-                          Text(DateFormat('yyyy-MM-dd At KK:mm').format(DateTime.tryParse('${DateTime.now()}')!),style: Theme.of(context).textTheme.subtitle1,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 15.0,
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.more_horiz),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 1.0,
-                    color: Colors.grey[300],
+  Widget builtPostItem(Map model, context) => Card(
+        margin: const EdgeInsets.symmetric(horizontal: 0.8),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 5.0,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 25.0,
+                    backgroundImage:
+                        NetworkImage('${LaVieCubit.get(context).image}'),
                   ),
-                ),
-                Center(
-                  child: Text(
-                    '${model['title']}',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Colors.black,
-                    ),
+                  const SizedBox(
+                    width: 15.0,
                   ),
-                ),
-                const SizedBox(
-                  height: 15.0,
-                ),
-                Text(
-                  '${model['des']}',
-                  style: const TextStyle(
-                    color: Colors.black,
-                      ),
-                ),
-                  Padding(
-                    padding:const EdgeInsetsDirectional.only(top: 15.0),
-                    child: Container(
-                        height:250,
-                        width: double.infinity,
-                        decoration:BoxDecoration(
-                          image:DecorationImage(
-                            image:NetworkImage(
-                                '${model['image']}',
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              '${LaVieCubit.get(context).firstName}',
+                              style: const TextStyle(
+                                height: 1.4,
+                              ),
                             ),
-                            fit:BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(4.0),
-                        )
+                            const SizedBox(
+                              width: 5,
+                            ),
+                          ],
+                        ),
+                        Text(DateFormat('yyyy-MM-dd At KK:mm').format(DateTime.tryParse('${DateTime.now()}')!),style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ],
                     ),
                   ),
-              ],
-            ),
+                  const SizedBox(
+                    width: 15.0,
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      LaVieCubit.get(context).deletePostData(id: model['id']);
+                    },
+                    icon: const Icon(Icons.restore_from_trash , color: Colors.green,),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 1.0,
+                  color: Colors.grey[300],
+                ),
+              ),
+              Center(
+                child: Text(
+                  '${model['title']}',
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                '${model['des']}',
+                style: const TextStyle(
+                  color: Colors.black,
+                    ),
+              ),
+                Padding(
+                  padding:const EdgeInsetsDirectional.only(top: 15.0),
+                  child: Container(
+                      height:250,
+                      width: double.infinity,
+                      decoration:BoxDecoration(
+                        image:DecorationImage(
+                          image:NetworkImage(
+                              '${model['image']}',
+                          ),
+                          fit:BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(4.0),
+                      )
+                  ),
+                ),
+            ],
           ),
         ),
-  );
+      );
 }
