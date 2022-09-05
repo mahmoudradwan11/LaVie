@@ -44,36 +44,28 @@ class CardScreen extends StatelessWidget {
     );
   }
 
-  Widget builtCredItem(Map model, context) => Dismissible(
-        key: Key(model['id'].toString()),
-        onDismissed: (direction) {
-          LaVieCubit.get(context).deleteData(id: model['id']);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(' Name : ${model['name']}'),
-            const SizedBox(
-              height: 3,
-            ),
-            Text(' Description : ${model['des']}'),
-            const SizedBox(
-              height: 3,
-            ),
-            Text(' Price : ${model['price']}'),
-            const SizedBox(
-              height: 3,
-            ),
-            const Align(
-              alignment: Alignment.bottomCenter,
-              child: Image(
-                image: AssetImage('images/th.png'),
-                height: 200,
-                width: 200,
-              ),
-            )
-          ]),
-        ),
-      );
+  Widget builtCredItem(Map model, context) => Padding(
+    padding: const EdgeInsets.all(20.0),
+    child:
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(' Name : ${model['name']}'),
+      const SizedBox(
+        height: 3,
+      ),
+      Text(' Description : ${model['des']}'),
+      const SizedBox(
+        height: 3,
+      ),
+      Text(' Price : ${model['price']}'),
+      const SizedBox(
+        height: 3,
+      ),
+      Align(
+            alignment: Alignment.bottomRight,
+            child: IconButton(onPressed:(){
+              LaVieCubit.get(context).deleteData(id: model['id']);
+            }, icon:const Icon(Icons.restore_from_trash , color: Colors.green,),)
+          )
+    ]),
+  );
 }

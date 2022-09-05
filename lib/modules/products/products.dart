@@ -103,28 +103,49 @@ class Products extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                if (model.imageUrl != null)
-                  if (model.type == 'PLANT')
+                  if (model.name == 'Glory')
                     const Image(
-                      image: AssetImage('images/th.png'),
+                      image:NetworkImage('https://th.bing.com/th/id/OIP.mKfLw4LuQ-K5g9ZeXVe-nAHaHa?w=183&h=184&c=7&r=0&o=5&dpr=1.25&pid=1.7'),
                       height: 120,
-                      width: 90,
-                      fit: BoxFit.cover,
+                      width: 99,
+                      fit: BoxFit.contain,
                     ),
-                if (model.type == 'SEED')
+                if (model.name == 'Over the Moon')
                   const Image(
-                    image: AssetImage('images/seeds.png'),
+                    image:NetworkImage(
+                      'https://th.bing.com/th/id/OIP.hkwFIVujrm08J0hGVakdEgHaFj?w=234&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7'
+                    ),
+                    height: 170,
+                    width: 160,
+                    fit: BoxFit.contain,
+                  ),
+                if (model.name == 'Tropical Scents')
+                  const Image(
+                    image:NetworkImage(
+                      'https://th.bing.com/th/id/OIP.sfUHpBz5lHd2M0rHdRHjHgHaHa?w=192&h=192&c=7&r=0&o=5&dpr=1.25&pid=1.7'
+                    ),
+                     height: 190,
+                     width: 99,
+                    fit: BoxFit.contain,
+                  ),
+                if (model.name == 'axe')
+                  const Image(
+                    image: NetworkImage(
+                        'https://th.bing.com/th/id/OIP.kD5LxbCaBLuCkXyVa2UzQgHaHa?w=176&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7'
+                        ),
                     height: 120,
                     width: 90,
                     fit: BoxFit.cover,
                   ),
-                if (model.type == 'TOOL')
-                  const Image(
-                    image: AssetImage('images/tool.png'),
-                    height: 120,
-                    width: 90,
-                    fit: BoxFit.cover,
+                //if (model.imageUrl != null)
+                if(model.type=='SEED')
+                      const Image(
+                    image: NetworkImage('https://th.bing.com/th/id/OIP.gmnqmYOoI-n82Gu3cvoJLgHaE7?w=281&h=187&c=7&r=0&o=5&dpr=1.25&pid=1.7'),
+                    fit: BoxFit.contain,
+                  height: 100,
+                  // width: 100,
                   ),
+
               ],
             ),
             const SizedBox(

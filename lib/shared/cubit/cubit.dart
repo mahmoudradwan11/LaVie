@@ -1,10 +1,11 @@
 import 'dart:async';
+//import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:la_vie/models/plant_model/plant_model.dart';
-import 'package:la_vie/models/post_model/post_model.dart';
+//import 'package:la_vie/models/post_model/post_model.dart';
 import 'package:la_vie/models/product_model/product_model.dart';
 import 'package:la_vie/models/seed_model/seed_model.dart';
 import 'package:la_vie/models/tools_model/tools_model.dart';
@@ -42,20 +43,10 @@ class LaVieCubit extends Cubit<LaVieStates> {
   String? email;
   String? image;
   UserModel? userModel;
-  //User? user;
   PlantModel? plantModel;
-  PlantDataModel? plantDataModel;
   SeedsModel? seedsModel;
-  SeedsDataModel? seedsDataModel;
   ToolsModel? toolsModel;
-  ToolsDataModel? toolsDataModel;
   ProductModel? productModel;
-  ProductDataModel? productDataModel;
-  PlantProductModel? plantProductModel;
-  SeedProductModel? seedProductModel;
-  ToolProductModel? toolProductModel;
-  ForumsPost? forumsPost;
-  File? file;
   Database? database;
   List<Map> cred = [];
   List<Map> posts = [];
@@ -148,7 +139,10 @@ class LaVieCubit extends Cubit<LaVieStates> {
   }
 
   Future<void> insertDatabase(
-      {required String name, required String des, required int price}) async {
+      {required String name,
+        required String des,
+        required int price
+      }) async {
     database!.transaction((txn) {
       return txn
           .rawInsert(
@@ -280,4 +274,5 @@ class LaVieCubit extends Cubit<LaVieStates> {
       emit(ErrorGetPostDataState());
     });
   }
-}
+  }
+

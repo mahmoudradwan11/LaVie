@@ -23,6 +23,11 @@ class Home extends StatelessWidget {
               length: cubit.tabs.length,
               child: Scaffold(
                 appBar: AppBar(
+                  actions: [
+                    IconButton(onPressed:(){
+                      navigateTo(context,const CardScreen());
+                    }, icon:const Icon(Icons.production_quantity_limits_sharp,color: Colors.green,))
+                  ],
                   //backgroundColor: Colors.green,
                   title: const Text('LaVie'),
                   centerTitle: true,
