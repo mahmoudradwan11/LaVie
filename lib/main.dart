@@ -16,12 +16,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
   await CacheHelper.init();
-  SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor:Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      )
-  );
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
   Widget widget;
   token = CacheHelper.getData(key: 'token');
   print('Token = $token');

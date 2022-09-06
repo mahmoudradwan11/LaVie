@@ -52,7 +52,7 @@ class LaVieCubit extends Cubit<LaVieStates> {
   Database? database;
   List<Map> cred = [];
   List<Map> posts = [];
-  List<Map>comments = [];
+  List<Map> comments = [];
   void getPlants() {
     DioHelper.getData(
       url: PLANTS,
@@ -122,16 +122,17 @@ class LaVieCubit extends Cubit<LaVieStates> {
       }).catchError((error) {
         print('Error occur : $error');
       });
-      database.execute(
-          'create table Posts(id INTEGER PRIMARY KEY,title TEXT , des TEXT,image TEXT)'
-      ).then((value) {
+      database
+          .execute(
+              'create table Posts(id INTEGER PRIMARY KEY,title TEXT , des TEXT,image TEXT)')
+          .then((value) {
         print('Table 2 Created');
       }).catchError((error) {
         print('Error occur : $error');
       });
-      database.execute(
-          'create table Comment(id INTEGER PRIMARY KEY,title TEXT)'
-      ).then((value) {
+      database
+          .execute('create table Comment(id INTEGER PRIMARY KEY,title TEXT)')
+          .then((value) {
         print('Table 3 Created');
       }).catchError((error) {
         print('Error occur : $error');
@@ -150,10 +151,7 @@ class LaVieCubit extends Cubit<LaVieStates> {
   }
 
   Future<void> insertDatabase(
-      {required String name,
-        required String des,
-        required int price
-      }) async {
+      {required String name, required String des, required int price}) async {
     database!.transaction((txn) {
       return txn
           .rawInsert(
@@ -191,6 +189,7 @@ class LaVieCubit extends Cubit<LaVieStates> {
       emit(DeleteDataState());
     });
   }
+
   void deletePostData({required int id}) async {
     await database!
         .rawDelete('DELETE FROM Posts WHERE id= ?', [id]).then((value) {
@@ -242,12 +241,15 @@ class LaVieCubit extends Cubit<LaVieStates> {
       emit(UserUpdateFailedState());
     });
   }
+
   Future<void> insertPost(
-      {required String title, required String des, required String image}) async {
+      {required String title,
+      required String des,
+      required String image}) async {
     database!.transaction((txn) {
       return txn
           .rawInsert(
-          'INSERT INTO Posts(title,des,image) VALUES("$title","$des","$image")')
+              'INSERT INTO Posts(title,des,image) VALUES("$title","$des","$image")')
           .then((value) {
         print('$value Inserted Successfully');
         emit(InsertPostDataState());
@@ -259,8 +261,9 @@ class LaVieCubit extends Cubit<LaVieStates> {
       });
     });
   }
+
   void getPostData(database) {
-    posts= [];
+    posts = [];
     database!.rawQuery('select * from Posts').then((value) {
       value.forEach((element) {
         posts.add(element);
@@ -272,24 +275,23 @@ class LaVieCubit extends Cubit<LaVieStates> {
       emit(ErrorGetPostDataState());
     });
   }
-  void addCount()
-  {
+
+  void addCount() {
     counter++;
     emit(AddCounter());
   }
-  void minusCounter()
-  {
+
+  void minusCounter() {
     counter--;
     emit(MinusCounter());
   }
-  Future<void> insertCommentDatabase(
-      {
-        required String title,
-      }) async {
+
+  Future<void> insertCommentDatabase({
+    required String title,
+  }) async {
     database!.transaction((txn) {
       return txn
-          .rawInsert(
-          'INSERT INTO Comment(title) VALUES("$title")')
+          .rawInsert('INSERT INTO Comment(title) VALUES("$title")')
           .then((value) {
         print('$value Inserted Successfully');
         emit(InsertCommentDataState());
@@ -301,6 +303,7 @@ class LaVieCubit extends Cubit<LaVieStates> {
       });
     });
   }
+
   void getCommentData(database) {
     comments = [];
     database!.rawQuery('select * from Comment').then((value) {
@@ -314,6 +317,7 @@ class LaVieCubit extends Cubit<LaVieStates> {
       emit(ErrorGetCommentDataState());
     });
   }
+
   void deleteCommentData({required int id}) async {
     await database!
         .rawDelete('DELETE FROM Comment WHERE id= ?', [id]).then((value) {
@@ -322,4 +326,3 @@ class LaVieCubit extends Cubit<LaVieStates> {
     });
   }
 }
-
