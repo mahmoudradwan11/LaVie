@@ -155,6 +155,7 @@ class Products extends StatelessWidget {
                     name: model.name!,
                     des: model.description!,
                     price: model.price!,
+                    image: 'https://th.bing.com/th/id/R.e834f48048e24c8817511fb1e1a1a2be?rik=aTBYXYAqbdahgw&pid=ImgRaw&r=0'
                   );
                   showToast('Add Successfully', ToastStates.SUCCESS);
                 },

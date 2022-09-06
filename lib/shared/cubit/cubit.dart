@@ -116,7 +116,7 @@ class LaVieCubit extends Cubit<LaVieStates> {
       print('DataBase Created');
       database
           .execute(
-              'create table Cred(id INTEGER PRIMARY KEY,name TEXT , des TEXT , price INT)')
+              'create table Cred(id INTEGER PRIMARY KEY,name TEXT , des TEXT , price INT,image TEXT)')
           .then((value) {
         print('Table 1 Created');
       }).catchError((error) {
@@ -151,11 +151,11 @@ class LaVieCubit extends Cubit<LaVieStates> {
   }
 
   Future<void> insertDatabase(
-      {required String name, required String des, required int price}) async {
+      {required String name, required String des, required int price ,required String image}) async {
     database!.transaction((txn) {
       return txn
           .rawInsert(
-              'INSERT INTO Cred(name,des,price) VALUES("$name","$des","$price")')
+              'INSERT INTO Cred(name,des,price,image) VALUES("$name","$des","$price","$image")')
           .then((value) {
         print('$value Inserted Successfully');
         emit(InsertDatabaseState());

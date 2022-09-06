@@ -5,8 +5,8 @@ import 'package:la_vie/shared/cubit/cubit.dart';
 import 'package:la_vie/shared/cubit/states.dart';
 
 class CardScreen extends StatelessWidget {
+  //final String? image;
   const CardScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LaVieCubit, LaVieStates>(
@@ -60,13 +60,47 @@ class CardScreen extends StatelessWidget {
       const SizedBox(
         height: 3,
       ),
-      Align(
-            alignment: Alignment.bottomRight,
-            child: IconButton(onPressed:(){
-              LaVieCubit.get(context).deleteData(id: model['id']);
-              showToast('Deleted Successfully',ToastStates.SUCCESS);
-            }, icon:const Icon(Icons.restore_from_trash , color: Colors.green,),)
-          )
-    ]),
+          Padding(
+            padding:const EdgeInsetsDirectional.only(top: 15.0),
+            child: Container(
+                height:250,
+                width: double.infinity,
+                decoration:BoxDecoration(
+                  image:DecorationImage(
+                    image:NetworkImage(
+                      '${model['image']}'
+                    ),
+                    fit:BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(4.0),
+                )
+            ),
+          ),
+      PVSpace20,
+      Row(
+        children: [
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: defButton(
+                width:200,
+                function:(){
+                  showToast('Item Will Arrive on your address',ToastStates.SUCCESS);
+                },
+                text: 'buy now '
+            ),
+          ),
+          const Spacer(),
+          Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(onPressed:(){
+                  LaVieCubit.get(context).deleteData(id: model['id']);
+                  showToast('Deleted Successfully',ToastStates.SUCCESS);
+                }, icon:const Icon(Icons.restore_from_trash , color: Colors.green,),)
+              ),
+          //const Spacer(),
+        ],
+      ),
+    ]
+          ),
   );
 }
