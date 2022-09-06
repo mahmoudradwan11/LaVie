@@ -64,6 +64,7 @@ class CardScreen extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: IconButton(onPressed:(){
               LaVieCubit.get(context).deleteData(id: model['id']);
+              showToast('Deleted Successfully',ToastStates.SUCCESS);
             }, icon:const Icon(Icons.restore_from_trash , color: Colors.green,),)
           )
     ]),

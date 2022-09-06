@@ -38,6 +38,15 @@ class GetDatabaseState extends LaVieStates {}
 
 class ErrorGetDatabaseState extends LaVieStates {}
 
+class InsertCommentDataState extends LaVieStates {}
+
+class ErrorCommentInsertDataState extends LaVieStates {}
+
+class GetCommentDataState extends LaVieStates {}
+
+class ErrorGetCommentDataState extends LaVieStates {}
+
+
 class InsertPostDataState extends LaVieStates {}
 
 class ErrorInsertPostDataState extends LaVieStates {}
@@ -47,6 +56,8 @@ class GetPostDataState extends LaVieStates {}
 class ErrorGetPostDataState extends LaVieStates {}
 
 class DeleteDataState extends LaVieStates {}
+
+class DeleteCommentDataState extends LaVieStates {}
 
 class DeletePostDataState extends LaVieStates {}
 
@@ -63,8 +74,8 @@ class UserUpdateFailedState extends LaVieStates {}
 
 class UploadImageSuccessState extends LaVieStates {}
 
-class UploadImageErrorState extends LaVieStates {
-}
+class UploadImageErrorState extends LaVieStates {}
 
+class AddCounter extends LaVieStates{}
 
-
+class MinusCounter extends LaVieStates{}

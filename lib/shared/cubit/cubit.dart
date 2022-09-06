@@ -1,9 +1,7 @@
 import 'dart:async';
 //import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:la_vie/models/plant_model/plant_model.dart';
 //import 'package:la_vie/models/post_model/post_model.dart';
 import 'package:la_vie/models/product_model/product_model.dart';
@@ -38,6 +36,7 @@ class LaVieCubit extends Cubit<LaVieStates> {
     Tab(text: 'Seeds'),
     Tab(text: 'Tools'),
   ];
+  int counter = 0;
   String? firstName;
   String? lastName;
   String? email;
@@ -50,6 +49,7 @@ class LaVieCubit extends Cubit<LaVieStates> {
   Database? database;
   List<Map> cred = [];
   List<Map> posts = [];
+  List<Map>comments = [];
   void getPlants() {
     DioHelper.getData(
       url: PLANTS,
@@ -109,7 +109,7 @@ class LaVieCubit extends Cubit<LaVieStates> {
   }
 
   void createDatabase() {
-    openDatabase('Cred.db', version: 2, onCreate: (database, version) {
+    openDatabase('Cred.db', version: 3, onCreate: (database, version) {
       print('DataBase Created');
       database
           .execute(
@@ -126,9 +126,17 @@ class LaVieCubit extends Cubit<LaVieStates> {
       }).catchError((error) {
         print('Error occur : $error');
       });
+      database.execute(
+          'create table Comment(id INTEGER PRIMARY KEY,title TEXT)'
+      ).then((value) {
+        print('Table 3 Created');
+      }).catchError((error) {
+        print('Error occur : $error');
+      });
     }, onOpen: (database) {
       getData(database);
       getPostData(database);
+      getCommentData(database);
       print('Database opened');
     }).then((value) {
       database = value;
@@ -231,19 +239,6 @@ class LaVieCubit extends Cubit<LaVieStates> {
       emit(UserUpdateFailedState());
     });
   }
-  File? imageFile;
-  Future uploadImage()async
-  {
-        final myfile = await ImagePicker().pickImage(source:ImageSource.gallery);
-        if (myfile != null) {
-          imageFile = File(myfile.path);
-          print('Image File  = $imageFile');
-          emit(UploadImageSuccessState());
-        } else {
-          print('No image select');
-          emit(UploadImageErrorState());
-        }
-  }
   Future<void> insertPost(
       {required String title, required String des, required String image}) async {
     database!.transaction((txn) {
@@ -274,5 +269,54 @@ class LaVieCubit extends Cubit<LaVieStates> {
       emit(ErrorGetPostDataState());
     });
   }
+  void addCount()
+  {
+    counter++;
+    emit(AddCounter());
   }
+  void minusCounter()
+  {
+    counter--;
+    emit(MinusCounter());
+  }
+  Future<void> insertCommentDatabase(
+      {
+        required String title,
+      }) async {
+    database!.transaction((txn) {
+      return txn
+          .rawInsert(
+          'INSERT INTO Comment(title) VALUES("$title")')
+          .then((value) {
+        print('$value Inserted Successfully');
+        emit(InsertCommentDataState());
+        getCommentData(database);
+        //print()
+      }).catchError((error) {
+        print('Error occur : $error');
+        emit(ErrorCommentInsertDataState());
+      });
+    });
+  }
+  void getCommentData(database) {
+    comments = [];
+    database!.rawQuery('select * from Comment').then((value) {
+      value.forEach((element) {
+        comments.add(element);
+      });
+      print(comments);
+      emit(GetCommentDataState());
+    }).catchError((error) {
+      print('Error occur no data');
+      emit(ErrorGetCommentDataState());
+    });
+  }
+  void deleteCommentData({required int id}) async {
+    await database!
+        .rawDelete('DELETE FROM Comment WHERE id= ?', [id]).then((value) {
+      getCommentData(database);
+      emit(DeleteCommentDataState());
+    });
+  }
+}
 

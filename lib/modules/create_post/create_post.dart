@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la_vie/shared/components/component.dart';
 import 'package:la_vie/shared/cubit/cubit.dart';
 import 'package:la_vie/shared/cubit/states.dart';
-import 'package:la_vie/shared/styles/colors.dart';
+//import 'package:la_vie/shared/styles/colors.dart';
 
 class CreatePost extends StatelessWidget {
   CreatePost({Key? key}) : super(key: key);
@@ -32,14 +32,14 @@ class CreatePost extends StatelessWidget {
                     buildTextForm(
                       context,
                       buttonController: titleController,
-                      'Title',
+                      title: 'Title',
                       MediaQuery.of(context).size.height * 0.07,
                     ),
                     PVSpace30,
                     buildTextForm(
                       context,
                       buttonController: descriptionController,
-                      'Description',
+                      title: 'Description',
                       MediaQuery.of(context).size.height * 0.22,
                     ),
                     PVSpace30,
@@ -48,8 +48,10 @@ class CreatePost extends StatelessWidget {
                           title:titleController.text,
                           des:descriptionController.text,
                           image:'https://www.bing.com/th?id=OIP.Pp0yCTNK-xQoApXdq0rAmwHaFj&w=288&h=216&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2');
+                        showToast('Post Add Successfully',ToastStates.SUCCESS);
                     },
-                        text:'Add Post')
+                        text:'Add Post'
+                    ),
                   ],
                 ),
               ),

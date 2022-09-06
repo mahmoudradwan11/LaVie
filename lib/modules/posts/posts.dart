@@ -4,10 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:la_vie/shared/components/component.dart';
 import 'package:la_vie/shared/cubit/cubit.dart';
 import 'package:la_vie/shared/cubit/states.dart';
+import 'package:la_vie/shared/styles/colors.dart';
 
 class Posts extends StatelessWidget {
-  const Posts({Key? key}) : super(key: key);
-
+  Posts({Key? key}) : super(key: key);
+  TextEditingController commentsController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LaVieCubit, LaVieStates>(
@@ -93,6 +94,7 @@ class Posts extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       LaVieCubit.get(context).deletePostData(id: model['id']);
+                      showToast('post delete successfully', ToastStates.SUCCESS);
                     },
                     icon: const Icon(Icons.restore_from_trash , color: Colors.green,),
                   ),
@@ -139,8 +141,86 @@ class Posts extends StatelessWidget {
                       )
                   ),
                 ),
+          Padding(
+      padding:const EdgeInsets.symmetric(vertical: 5.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: InkWell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical:5.0),
+                child: Row(
+                  children:[
+                    const Icon(Icons.favorite,
+                      size: 18.0,
+                      color: Colors.green,
+                    ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    Text(
+                      '${LaVieCubit.get(context).counter}',style:Theme.of(context).textTheme.caption!.copyWith(
+                      color: Colors.green,
+                    ),),
+                    const Text(' Likes',style: TextStyle(color: Colors.green),)
+                  ],
+                ),
+              ),
+              onTap:(){
+                LaVieCubit.get(context).addCount();
+              },
+            ),
+          ),
+          Expanded(
+            child: InkWell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  mainAxisAlignment:MainAxisAlignment.end,
+                  children:[
+                    Icon(
+                      Icons.comment,
+                      size: 18.0,
+                      color:defaultColor,
+                    ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    Text(
+                      '120',style:Theme.of(context).textTheme.caption,)
+                  ],
+                ),
+              ),
+              onTap:(){},
+            ),
+          )
             ],
           ),
+        ),
+              Row(
+                crossAxisAlignment:CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Container(
+                      child: buildTextForm(
+                        context,
+                        title:'Comment',
+                        color: Colors.white,
+                        fontSize: 1,
+                        buttonController: commentsController,
+                        MediaQuery.of(context).size.height * 0.07,
+                      ),
+                    ),
+                  ),
+                  IconButton(onPressed:(){
+                    LaVieCubit.get(context).insertCommentDatabase(title: commentsController.text);
+                    showToast('Comment Add Successfully', ToastStates.SUCCESS);
+                  }, icon:const Icon(Icons.send,color: Colors.green,size: 40,))
+                ],
+              ),
+      ]
+  ),
         ),
       );
 }

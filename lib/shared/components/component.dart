@@ -246,16 +246,19 @@ const PHSpace80 = SizedBox(width: 80.0, height: 0.0);
 const PHSpace120 = SizedBox(width: 120.0, height: 0.0);
 Widget buildTextForm(
     BuildContext context,
-    String title,
     double height, {
       TextEditingController? buttonController,
+      double? width,
+      String? title,
+      double?fontSize = 16.0,
+      Color?color = Colors.black,
     }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        title,
-        style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16.0),
+        title!,
+        style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: fontSize,color: color),
       ),
       PVSpace10,
       Container(

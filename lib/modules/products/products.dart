@@ -158,6 +158,7 @@ class Products extends StatelessWidget {
                     des: model.description!,
                     price: model.price!,
                   );
+                  showToast('Add Successfully',ToastStates.SUCCESS);
                 },
                 text: 'Add Card',
                 isUpper: false)

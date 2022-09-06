@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la_vie/modules/Cred/cred.dart';
 import 'package:la_vie/modules/User/user.dart';
+import 'package:la_vie/modules/coments/comments.dart';
 import 'package:la_vie/modules/create_post/create_post.dart';
 import 'package:la_vie/modules/notification/notification.dart';
 import 'package:la_vie/modules/posts/posts.dart';
@@ -86,7 +87,14 @@ class Home extends StatelessWidget {
                         title: const Text('Posts'),
                         leading: const Icon(Icons.local_post_office_sharp),
                         onTap: () {
-                          navigateTo(context,const Posts());
+                          navigateTo(context, Posts());
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Comments'),
+                        leading: const Icon(Icons.comment),
+                        onTap: () {
+                          navigateTo(context,const CommentsScreen());
                         },
                       ),
                     ],
@@ -95,7 +103,8 @@ class Home extends StatelessWidget {
                 body: TabBarView(
                   children: cubit.screens,
                 ),
-              ));
+              )
+          );
         });
   }
 }
