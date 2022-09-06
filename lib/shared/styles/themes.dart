@@ -7,10 +7,6 @@ ThemeData lightTheme = ThemeData(
   primarySwatch: defaultColor,
   appBarTheme: const AppBarTheme(
     titleSpacing: 20.0,
-    systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      statusBarIconBrightness: Brightness.dark,
-    ),
     backgroundColor: Colors.white,
     elevation: 0.0,
     titleTextStyle: TextStyle(

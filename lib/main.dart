@@ -1,19 +1,27 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la_vie/modules/login/login.dart';
+import 'package:la_vie/shared/components/component.dart';
 import 'package:la_vie/shared/cubit/cubit.dart';
 import 'package:la_vie/shared/cubit/states.dart';
 import 'package:la_vie/shared/network/endPoint/values.dart';
 import 'package:la_vie/shared/network/local/cache_helper.dart';
 import 'package:la_vie/shared/network/remote/dio_helper.dart';
 import 'package:la_vie/shared/styles/themes.dart';
-
 import 'layout/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
   await CacheHelper.init();
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor:Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      )
+  );
   Widget widget;
   token = CacheHelper.getData(key: 'token');
   print('Token = $token');
@@ -50,7 +58,14 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             themeMode: ThemeMode.light,
             darkTheme: darkTheme,
-            home: startWidget,
+            home: AnimatedSplashScreen(
+              splash: logo(),
+              duration: 2000,
+              nextScreen: startWidget!,
+              splashTransition: SplashTransition.fadeTransition,
+              backgroundColor: Colors.white,
+              //type: AnimatedSplashType.StaticSplashScreen,
+            ),
           );
         },
       ),
