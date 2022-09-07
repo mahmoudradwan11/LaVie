@@ -52,13 +52,13 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Plant',
+            title: 'La_vie',
             theme: lightTheme,
             themeMode: ThemeMode.light,
             darkTheme: darkTheme,
             home: AnimatedSplashScreen(
               splash: logo(),
-              duration: 2000,
+              duration: 3000,
               nextScreen: startWidget!,
               splashTransition: SplashTransition.fadeTransition,
               backgroundColor: Colors.white,
