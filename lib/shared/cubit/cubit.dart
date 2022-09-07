@@ -1,11 +1,6 @@
-import 'dart:async';
-//import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:la_vie/layout/home.dart';
 import 'package:la_vie/models/plant_model/plant_model.dart';
-//import 'package:la_vie/models/post_model/post_model.dart';
 import 'package:la_vie/models/product_model/product_model.dart';
 import 'package:la_vie/models/seed_model/seed_model.dart';
 import 'package:la_vie/models/tools_model/tools_model.dart';
@@ -14,7 +9,6 @@ import 'package:la_vie/modules/plants/plants.dart';
 import 'package:la_vie/modules/products/products.dart';
 import 'package:la_vie/modules/seeds/seeds.dart';
 import 'package:la_vie/modules/tools/tools.dart';
-import 'package:la_vie/shared/components/component.dart';
 import 'package:la_vie/shared/cubit/states.dart';
 import 'package:la_vie/shared/network/endPoint/values.dart';
 import 'package:la_vie/shared/network/remote/dio_helper.dart';
@@ -151,7 +145,10 @@ class LaVieCubit extends Cubit<LaVieStates> {
   }
 
   Future<void> insertDatabase(
-      {required String name, required String des, required int price ,required String image}) async {
+      {required String name,
+      required String des,
+      required int price,
+      required String image}) async {
     database!.transaction((txn) {
       return txn
           .rawInsert(
